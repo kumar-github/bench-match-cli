@@ -1,0 +1,39 @@
+{
+  "_comment": [
+    "Single source of truth for which 'MAS Mapping' categories are in active Phase 1",
+    "scope -- for BOTH supply (AFD-Supply.xlsx) and demand (Demand.xlsx). Decided 2026-10-01:",
+    "only Full Stack and Front End are active; everything else is deferred to Phase 2.",
+    "",
+    "Flip a category's status to 'active' to bring it into scope -- but read",
+    "demand-supply-mapping-requirements.md's 'MAS Mapping scoping' section first: activating a",
+    "category here does NOT by itself produce correct matches. It only stops this gate from",
+    "excluding the category's rows; classify_demand_row()/classify_supply_row() in engine.py",
+    "still have no dedicated persona or supply pool for Tpm/Testing/Polyglot/etc, so an activated",
+    "category's skill-cluster text would just get forced into whichever of Fullstack",
+    "Java/Fullstack .NET/Frontend it happens to resemble -- the same category-mismatch problem",
+    "this gate exists to prevent. Real activation = flip this file AND build that category's",
+    "persona + supply pool + matching rules.",
+    "",
+    "KEEP THIS FILE AND THE JAVA WEB APP'S V7__mas_mapping_categories.sql SEED DATA IDENTICAL.",
+    "This project runs two parallel implementations (this CLI and bench-match-webapp) during a",
+    "build -> parallel-run -> sunset period; the Java side has no equivalent JSON file (it reads",
+    "its own DB table instead), so there is no automatic sync -- whoever changes one must change",
+    "the other by hand, the same lesson already learned the hard way from the AFD Status",
+    "case-sensitivity bug (2026-09-30), which was fixed in Python and nearly forgotten on the",
+    "Java side until it was flagged explicitly.",
+    "",
+    "A category not listed here defaults to inactive (the safe default) -- see",
+    "load_mas_mapping_scope() in classify_inputs.py."
+  ],
+  "categories": [
+    {"category": "Full Stack", "status": "active"},
+    {"category": "Front End", "status": "active"},
+    {"category": "Tpm", "status": "inactive", "note": "Technical Project Management -- not an engineering role; not a skill-confidence question like the others below"},
+    {"category": "Testing", "status": "inactive"},
+    {"category": "Polyglot", "status": "inactive"},
+    {"category": "Devops & Sre", "status": "inactive"},
+    {"category": "Integration", "status": "inactive"},
+    {"category": "Mainframe", "status": "inactive"},
+    {"category": "Architects & Emerging", "status": "inactive"}
+  ]
+}
